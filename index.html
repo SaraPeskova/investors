@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/World_CoastalBorders_0.js"></script>
+        <script src="data/Foundations_1.js"></script>
+        <script src="data/SWFs_2.js"></script>
+        <script src="data/PFs_3.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-68.4610791855,-129.69122835],[101.629961285,146.31659535]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_World_CoastalBorders_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_World_CoastalBorders_0_0() {
+            return {
+                pane: 'pane_World_CoastalBorders_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(109,165,201,1.0)',
+            }
+        }
+        map.createPane('pane_World_CoastalBorders_0');
+        map.getPane('pane_World_CoastalBorders_0').style.zIndex = 400;
+        map.getPane('pane_World_CoastalBorders_0').style['mix-blend-mode'] = 'normal';
+        var layer_World_CoastalBorders_0 = new L.geoJson(json_World_CoastalBorders_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_World_CoastalBorders_0',
+            onEachFeature: pop_World_CoastalBorders_0,
+            style: style_World_CoastalBorders_0_0,
+        });
+        bounds_group.addLayer(layer_World_CoastalBorders_0);
+        map.addLayer(layer_World_CoastalBorders_0);
+        function pop_Foundations_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Description</strong><br />' + (feature.properties['description'] !== null ? Autolinker.link(String(feature.properties['description'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Foundations_1_0() {
+            return {
+                pane: 'pane_Foundations_1',
+                radius: 5.2,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(225,181,48,1.0)',
+            }
+        }
+        map.createPane('pane_Foundations_1');
+        map.getPane('pane_Foundations_1').style.zIndex = 401;
+        map.getPane('pane_Foundations_1').style['mix-blend-mode'] = 'normal';
+        var layer_Foundations_1 = new L.geoJson(json_Foundations_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Foundations_1',
+            onEachFeature: pop_Foundations_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Foundations_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Foundations_1);
+        map.addLayer(layer_Foundations_1);
+        function pop_SWFs_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Description</strong><br />' + (feature.properties['description'] !== null ? Autolinker.link(String(feature.properties['description'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SWFs_2_0() {
+            return {
+                pane: 'pane_SWFs_2',
+                radius: 6.4,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(48,93,83,1.0)',
+            }
+        }
+        map.createPane('pane_SWFs_2');
+        map.getPane('pane_SWFs_2').style.zIndex = 402;
+        map.getPane('pane_SWFs_2').style['mix-blend-mode'] = 'normal';
+        var layer_SWFs_2 = new L.geoJson(json_SWFs_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_SWFs_2',
+            onEachFeature: pop_SWFs_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_SWFs_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_SWFs_2);
+        map.addLayer(layer_SWFs_2);
+        function pop_PFs_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Description</strong><br />' + (feature.properties['description'] !== null ? Autolinker.link(String(feature.properties['description'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PFs_3_0() {
+            return {
+                pane: 'pane_PFs_3',
+                radius: 6.4,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,91,17,1.0)',
+            }
+        }
+        map.createPane('pane_PFs_3');
+        map.getPane('pane_PFs_3').style.zIndex = 403;
+        map.getPane('pane_PFs_3').style['mix-blend-mode'] = 'normal';
+        var layer_PFs_3 = new L.geoJson(json_PFs_3, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_PFs_3',
+            onEachFeature: pop_PFs_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_PFs_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_PFs_3);
+        map.addLayer(layer_PFs_3);
+        map.on("zoomend", function(e) {
+            if (map.getZoom() <= 19 && map.getZoom() >= 2) {
+                map.addLayer(layer_PFs_3);
+            } else if (map.getZoom() > 19 || map.getZoom() < 2) {
+                map.removeLayer(layer_PFs_3);
+            }
+        });
+            if (map.getZoom() <= 19 && map.getZoom() >= 2) {
+                map.addLayer(layer_PFs_3);
+            } else if (map.getZoom() > 19 || map.getZoom() < 2) {
+                map.removeLayer(layer_PFs_3);
+            }
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/PFs_3.png" /> PFs': layer_PFs_3,'<img src="legend/SWFs_2.png" /> SWFs': layer_SWFs_2,'<img src="legend/Foundations_1.png" /> Foundations': layer_Foundations_1,},{collapsed:false}).addTo(map);
+        map.on("zoomend", function(){
+
+            if (map.hasLayer(layer_SWFs_2)) {
+                if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                    layer_SWFs_2.eachLayer(function (layer) {
+                        layer.openTooltip();
+                    });
+                } else {
+                    layer_SWFs_2.eachLayer(function (layer) {
+                        layer.closeTooltip();
+                    });
+                }
+            }
+            if (map.hasLayer(layer_PFs_3)) {
+                if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                    layer_PFs_3.eachLayer(function (layer) {
+                        layer.openTooltip();
+                    });
+                } else {
+                    layer_PFs_3.eachLayer(function (layer) {
+                        layer.closeTooltip();
+                    });
+                }
+            }
+        });
+        setBounds();
+            if (map.hasLayer(layer_SWFs_2)) {
+                if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                    layer_SWFs_2.eachLayer(function (layer) {
+                        layer.openTooltip();
+                    });
+                } else {
+                    layer_SWFs_2.eachLayer(function (layer) {
+                        layer.closeTooltip();
+                    });
+                }
+            }
+            if (map.hasLayer(layer_PFs_3)) {
+                if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                    layer_PFs_3.eachLayer(function (layer) {
+                        layer.openTooltip();
+                    });
+                } else {
+                    layer_PFs_3.eachLayer(function (layer) {
+                        layer.closeTooltip();
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>
